@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIST OF THE FLUTE, BLADE OF THE BLOSSOM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Oswald:wght@700&family=Special+Elite&family=Noto+Serif+JP:wght@900&display=swap');
+
+:root {
+  --ink: #0D0A06;
+  --paper: #F2E8D0;
+  --aged: #D4C49A;
+  --red: #B5151B;
+  --gold: #C8920A;
+  --bright-gold: #F0B429;
+  --corp-blue: #1A4F8A;
+  --glow-green: #3DAA4A;
+  --white: #FAF3E0;
+  --smoke: #9A8F7E;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--ink);
+  font-family: 'Special Elite', cursive;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23C8920A' /%3E%3Cline x1='10' y1='0' x2='10' y2='20' stroke='%23C8920A' stroke-width='1'/%3E%3Cline x1='0' y1='10' x2='20' y2='10' stroke='%23C8920A' stroke-width='1'/%3E%3C/svg%3E") 10 10, crosshair;
+  overflow-x: hidden;
+}
+
+/* ─── HALFTONE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+
+/* ─── GRAIN ─── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  z-index: 9998;
+}
+
+/* ════════════════════════════════════
+   COVER / HERO
+════════════════════════════════════ */
+.cover {
+  min-height: 100vh;
+  background: var(--paper);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* aged paper texture strips */
+.cover::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.015) 3px, rgba(0,0,0,0.015) 4px),
+    radial-gradient(ellipse 120% 80% at 50% 0%, #E8D8B0 0%, var(--paper) 60%),
+    radial-gradient(ellipse 60% 40% at 10% 100%, #C8A870 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ink bleed edges */
+.cover::after {
+  content: '';
+  position: absolute; inset: 0;
+  box-shadow: inset 0 0 120px rgba(13,10,6,0.35);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ─── PUBLISHER STRIP ─── */
+.publisher-strip {
+  background: var(--red);
+  padding: 8px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  border-bottom: 3px solid var(--ink);
+}
+
+.pub-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  letter-spacing: 5px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.pub-price {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  color: var(--bright-gold);
+  letter-spacing: 3px;
+}
+
+.issue-badge {
+  background: var(--bright-gold);
+  color: var(--ink);
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  padding: 3px 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  border: 2px solid var(--ink);
+}
+
+/* ─── MAIN TITLE AREA ─── */
+.cover-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 0;
+  position: relative;
+  z-index: 6;
+  padding: 0;
+}
+
+.cover-left {
+  padding: 30px 20px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 4px solid var(--ink);
+}
+
+.series-pretitle {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 7px;
+  color: var(--smoke);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.main-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(38px, 5.5vw, 72px);
+  line-height: 0.9;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  position: relative;
+}
+
+.main-title .highlight {
+  color: var(--red);
+  display: block;
+  font-style: normal;
+  font-size: 0.75em;
+  letter-spacing: 2px;
+}
+
+.title-divider {
+  width: 80px;
+  height: 4px;
+  background: var(--gold);
+  margin: 20px 0;
+  position: relative;
+}
+
+.title-divider::before, .title-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  background: var(--ink);
+  border-radius: 50%;
+}
+.title-divider::before { left: -10px; }
+.title-divider::after { right: -10px; }
+
+.tagline {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 380px;
+  border-left: 3px solid var(--red);
+  padding-left: 16px;
+  font-style: italic;
+}
+
+/* CHARACTER ROSTER */
+.roster {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.roster-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1.5px solid var(--ink);
+  background: rgba(255,255,255,0.3);
+}
+
+.roster-icon { font-size: 20px; line-height: 1; }
+
+.roster-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.roster-role {
+  font-size: 9px;
+  color: var(--smoke);
+  letter-spacing: 1px;
+}
+
+/* COVER SCENE - RIGHT PANEL */
+.cover-scene {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+}
+
+.scene-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: var(--red);
+  padding: 10px 16px;
+  z-index: 10;
+  border-top: 3px solid var(--bright-gold);
+}
+
+.scene-caption-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+/* SVG COVER ART */
+.cover-art {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── BOTTOM COVER BAND ─── */
+.cover-bottom {
+  background: var(--ink);
+  border-top: 4px double var(--gold);
+  padding: 12px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+
+.cover-bottom-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  color: var(--bright-gold);
+  letter-spacing: 4px;
+}
+
+.cover-bottom-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--smoke);
+  text-transform: uppercase;
+}
+
+/* ════════════════════════════════════
+   ISSUE SECTIONS
+════════════════════════════════════ */
+.issues-wrapper {
+  background: var(--paper);
+  position: relative;
+  overflow: hidden;
+}
+
+.issues-wrapper::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 28px,
+    rgba(0,0,0,0.04) 28px, rgba(0,0,0,0.04) 29px
+  );
+  pointer-events: none;
+}
+
+.issue-block {
+  border-bottom: 4px solid var(--ink);
+  position: relative;
+}
+
+/* Issue number mega background */
+.issue-mega-num {
+  position: absolute;
+  right: -10px;
+  top: -20px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 280px;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(0,0,0,0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.issue-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+  border-bottom: 3px solid var(--ink);
+}
+
+.issue-num-block {
+  padding: 20px 30px;
+  border-right: 3px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.iss-num-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--smoke);
+}
+
+.iss-num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.iss-num.red { color: var(--red); }
+.iss-num.gold { color: var(--gold); }
+.iss-num.blue { color: var(--corp-blue); }
+.iss-num.green { color: var(--glow-green); }
+.iss-num.dark { color: var(--ink); }
+
+.issue-title-area {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.issue-subtitle {
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: var(--smoke);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.issue-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(22px, 3.5vw, 42px);
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.issue-logline {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--smoke);
+  font-style: italic;
+  max-width: 600px;
+}
+
+/* SCENE GRID */
+.scenes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.scene-card {
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 24px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.scene-card:hover { background: rgba(200,146,10,0.06); }
+
+.scene-card:last-child { border-right: none; }
+
+.scene-type {
+  font-family: 'Oswald', sans-serif;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--smoke);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.scene-type.splash { color: var(--red); }
+.scene-type.double { color: var(--corp-blue); }
+.scene-type.montage { color: var(--gold); }
+.scene-type.reveal { color: var(--glow-green); }
+.scene-type.climax { color: var(--red); font-size: 9px; letter-spacing: 5px; }
+
+.scene-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.scene-body {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #3A3020;
+}
+
+/* SPEECH BUBBLE */
+.speech-bubble {
+  position: relative;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 20px;
+  border: 6px solid transparent;
+  border-top: 6px solid var(--ink);
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 21px;
+  border: 5px solid transparent;
+  border-top: 5px solid var(--white);
+}
+
+.speech-bubble.corporate {
+  background: #E8F0FB;
+  border-color: var(--corp-blue);
+  color: var(--corp-blue);
+}
+
+.speech-bubble.corporate::before { border-top-color: var(--corp-blue); }
+.speech-bubble.corporate::after { border-top-color: #E8F0FB; }
+
+.speech-bubble.hero {
+  background: #FFF8E8;
+  border-color: var(--gold);
+}
+
+.caption-box {
+  background: var(--ink);
+  color: var(--bright-gold);
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 8px 14px;
+  margin: 10px 0;
+  display: inline-block;
+  font-style: normal;
+  border-left: 4px solid var(--red);
+}
+
+/* SCENE VISUAL ACCENT */
+.scene-visual {
+  width: 100%;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+/* ─── ISSUE COLOR THEMES ─── */
+.issue-1 .issue-header { background: linear-gradient(135deg, #FFF8E8 0%, #F2E8D0 100%); }
+.issue-2 .issue-header { background: linear-gradient(135deg, #F0F4FA 0%, #DDE8F0 100%); }
+.issue-3 .issue-header { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 60%, #F2E8D0 100%); }
+.issue-4 .issue-header { background: linear-gradient(135deg, #2A1A2A 0%, #1A1428 100%); color: var(--paper); }
+.issue-4 .issue-title { color: var(--white); }
+.issue-4 .issue-subtitle { color: #9A8FAA; }
+.issue-4 .issue-logline { color: #9A8FAA; }
+.issue-5 .issue-header { background: linear-gradient(135deg, #E8F5E8 0%, #C8E8D0 60%, #F2E8D0 100%); }
+
+/* SOUND WAVE VISUAL */
+.sound-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 40px;
+  padding: 6px 0;
+}
+
+.wave-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--gold);
+  animation: wave-dance 1.2s ease-in-out infinite;
+}
+
+@keyframes wave-dance {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.wave-bar:nth-child(2n) { background: var(--red); animation-delay: 0.1s; }
+.wave-bar:nth-child(3n) { animation-delay: 0.2s; }
+.wave-bar:nth-child(4n) { background: var(--ink); animation-delay: 0.15s; }
+
+/* ─── SPLASH PAGE INDICATOR ─── */
+.splash-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.splash-indicator::before {
+  content: '★';
+  color: var(--bright-gold);
+  font-size: 11px;
+}
+
+/* ────────────────────────────────────
+   CHARACTER DOSSIER
+──────────────────────────────────── */
+.dossier-section {
+  background: var(--ink);
+  padding: 60px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dossier-section::before {
+  content: '武 侍 龍';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 200px;
+  color: rgba(255,255,255,0.02);
+  letter-spacing: 40px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.dossier-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.dossier-pretitle {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 8px;
+  color: var(--smoke);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.dossier-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(28px, 4vw, 52px);
+  color: var(--white);
+}
+
+.dossier-title span { color: var(--bright-gold); }
+
+.characters-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px;
+}
+
+.char-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 28px 20px;
+  position: relative;
+  transition: transform 0.3s, border-color 0.3s, background 0.3s;
+  cursor: default;
+}
+
+.char-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200,146,10,0.5);
+  background: rgba(200,146,10,0.05);
+}
+
+.char-card::after {
+  content: attr(data-initial);
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 80px;
+  font-weight: 900;
+  opacity: 0.06;
+  color: var(--white);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.char-icon-large { font-size: 48px; display: block; margin-bottom: 14px; }
+
+.char-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.char-name.red { color: var(--red); }
+.char-name.gold { color: var(--bright-gold); }
+.char-name.blue { color: #6DA8E8; }
+.char-name.green { color: #7ACA8A; }
+.char-name.neutral { color: var(--aged); }
+
+.char-archetype {
+  font-family: 'Special Elite', cursive;
+  font-size: 11px;
+  color: var(--smoke);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.char-desc {
+  font-family: 'Special Elite', cursive;
+  font-size: 12px;
+  color: rgba(240,232,208,0.7);
+  line-height: 1.7;
+}
+
+.char-weapon {
+  margin-top: 12px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  padding: 4px 8px;
+  display: inline-block;
+  border: 1px solid;
+  text-transform: uppercase;
+}
+
+.char-weapon.red { border-color: var(--red); color: var(--red); }
+.char-weapon.gold { border-color: var(--bright-gold); color: var(--bright-gold); }
+.char-weapon.blue { border-color: #6DA8E8; color: #6DA8E8; }
+.char-weapon.green { border-color: #7ACA8A; color: #7ACA8A; }
+.char-weapon.neutral { border-color: var(--aged); color: var(--aged); }
+
+/* ────────────────────────────────────
+   MANIFESTO / TONE NOTES
+──────────────────────────────────── */
+.manifesto {
+  background: var(--red);
+  padding: 60px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.manifesto::before {
+  content: '"';
+  position: absolute;
+  top: -40px;
+  left: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 400px;
+  color: rgba(0,0,0,0.12);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.manifesto-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.manifesto-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 8px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.manifesto-headline {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(26px, 4vw, 50px);
+  color: var(--white);
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+
+.manifesto-rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.rule-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.rule-num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: rgba(255,255,255,0.25);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.rule-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+}
+
+.rule-text strong {
+  color: var(--bright-gold);
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+/* SECRET SAUCE */
+.secret-sauce {
+  margin-top: 40px;
+  padding: 24px 30px;
+  background: rgba(0,0,0,0.2);
+  border-left: 5px solid var(--bright-gold);
+}
+
+.secret-sauce p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--bright-gold);
+  line-height: 1.7;
+}
+
+/* ────────────────────────────────────
+   FINAL FREEZE PANEL
+──────────────────────────────────── */
+.final-panel {
+  background: var(--paper);
+  border-top: 6px double var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.saloon-sign-section {
+  text-align: center;
+  padding: 60px 40px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.saloon-sign {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--bright-gold);
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(18px, 3vw, 32px);
+  padding: 20px 40px;
+  border: 4px solid var(--bright-gold);
+  position: relative;
+  letter-spacing: 2px;
+}
+
+.saloon-sign::before, .saloon-sign::after {
+  content: '★';
+  color: var(--red);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+.saloon-sign::before { left: 14px; }
+.saloon-sign::after { right: 14px; }
+
+.saloon-chain {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: -4px;
+}
+
+.chain-link {
+  width: 20px;
+  height: 24px;
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  transform: rotate(45deg);
+  margin: 0 -5px;
+}
+
+/* FINAL CAPTION */
+.final-caption {
+  background: var(--ink);
+  padding: 20px 40px;
+  text-align: center;
+  border-top: 4px solid var(--red);
+}
+
+.final-caption-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(14px, 2vw, 20px);
+  color: var(--bright-gold);
+  letter-spacing: 3px;
+}
+
+.final-caption-text span { color: var(--red); }
+
+/* TUMBLEWEED */
+.tumbleweed-row {
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-top: 2px solid rgba(0,0,0,0.15);
+}
+
+.tumbleweed {
+  animation: roll 4s linear infinite;
+  display: inline-block;
+}
+
+@keyframes roll {
+  from { transform: translateX(-60px) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  to { transform: translateX(60px) rotate(360deg); opacity: 0; }
+}
+
+/* ─── MARQUEE ─── */
+.marquee-strip {
+  background: var(--ink);
+  overflow: hidden;
+  border-top: 3px solid var(--gold);
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 0;
+}
+
+.marquee-inner {
+  display: flex;
+  animation: scroll-marquee 25s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 5px;
+  color: var(--paper);
+  text-transform: uppercase;
+  padding: 0 30px;
+  flex-shrink: 0;
+}
+
+.marquee-item.accent { color: var(--bright-gold); }
+.marquee-item.red { color: var(--red); }
+.marquee-item.blue { color: #6DA8E8; }
+
+@keyframes scroll-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .cover-body { grid-template-columns: 1fr; }
+  .cover-scene { min-height: 300px; border-right: none; border-top: 4px solid var(--ink); }
+  .manifesto-rules { grid-template-columns: 1fr; }
+  .characters-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     COVER
+═══════════════════════════════════════════ -->
+<div class="cover">
+  <div class="publisher-strip">
+    <span class="pub-name">Alien Algorithm Comics ✦ Galactic Cultural Division</span>
+    <span class="issue-badge">5-ISSUE MINISERIES</span>
+    <span class="pub-price">25¢ EARTH CURRENCY</span>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-left">
+      <div>
+        <div class="series-pretitle">A pulp miniseries in five explosive issues</div>
+        <div class="main-title">
+          Fist of<br>the Flute,
+          <span class="highlight">Blade of the<br>Blossom</span>
+        </div>
+        <div class="title-divider"></div>
+        <div class="tagline">
+          Two strangers. One dying town. A water cartel built from sentient cacti in pinstripe vests.
+          And somewhere in the desert dark — the Lizard Beasts are already circling.
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:5px; color:var(--smoke); margin-bottom:10px; text-transform:uppercase;">Dramatis Personæ</div>
+        <div class="roster">
+          <div class="roster-entry">
+            <span class="roster-icon">🔴</span>
+            <div>
+              <div class="roster-name">The Kung-Fu Master</div>
+              <div class="roster-role">Flute / Barefoot / Lethal</div>
+            </div>
+          </div>
+          <div class="roster-entry">
+            <span class="roster-icon">🟡</span>
+            <div>
+              <div class="roster-name">The Samurai Cowboy</div>
+              <div class="roster-role">Katana / Six-Gun / Honor</div>
+            </div>
+          </div>
+          <div class="roster-entry" style="border-color: var(--corp-blue);">
+            <span class="roster-icon">🔵</span>
+            <div>
+              <div class="roster-name">CEO Cactus</div>
+              <div class="roster-role">Gold Spines / Monopoly</div>
+            </div>
+          </div>
+          <div class="roster-entry" style="border-color: #4A7A2E;">
+            <span class="roster-icon">🦎</span>
+            <div>
+              <div class="roster-name">The Gila Bandits</div>
+              <div class="roster-role">Rattlesnake Rifles / Chaos</div>
+            </div>
+          </div>
+          <div class="roster-entry">
+            <span class="roster-icon">👩‍🏫</span>
+            <div>
+              <div class="roster-name">The Schoolmarm</div>
+              <div class="roster-role">Quiet Steel / Dry Gulch</div>
+            </div>
+          </div>
+          <div class="roster-entry" style="border-color: var(--gold);">
+            <span class="roster-icon">💃</span>
+            <div>
+              <div class="roster-name">Traveling Dancers</div>
+              <div class="roster-role">Kabuki-Can-Can / Blades</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COVER SCENE SVG -->
+    <div class="cover-scene">
+      <svg width="100%" height="100%" viewBox="0 0 420 580" preserveAspectRatio="xMidYMid slice">
+        <!-- sky -->
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0D0A06"/>
+            <stop offset="50%" stop-color="#2A1800"/>
+            <stop offset="80%" stop-color="#8B3A00"/>
+            <stop offset="100%" stop-color="#C87000"/>
+          </linearGradient>
+          <radialGradient id="moon" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#F0EAD6"/>
+            <stop offset="70%" stop-color="#D4C49A"/>
+            <stop offset="100%" stop-color="#B8A870"/>
+          </radialGradient>
+          <radialGradient id="glow-r" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#C41E1E" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#C41E1E" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="glow-g" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#F0B429" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#F0B429" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="blur-sm">
+            <feGaussianBlur stdDeviation="3"/>
+          </filter>
+          <filter id="blur-lg">
+            <feGaussianBlur stdDeviation="8"/>
+          </filter>
+        </defs>
+
+        <rect width="420" height="580" fill="url(#sky)"/>
+
+        <!-- halftone dots in sky -->
+        <pattern id="dots" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+          <circle cx="4" cy="4" r="0.8" fill="#F0EAD6" opacity="0.07"/>
+        </pattern>
+        <rect width="420" height="300" fill="url(#dots)"/>
+
+        <!-- moon -->
+        <circle cx="320" cy="80" r="48" fill="url(#moon)" opacity="0.9"/>
+        <circle cx="320" cy="80" r="52" fill="url(#moon)" filter="url(#blur-lg)" opacity="0.3"/>
+        <!-- moon kanji shadow -->
+        <text x="296" y="100" font-family="'Noto Serif JP',serif" font-size="42" fill="#0D0A06" opacity="0.15" font-weight="900">月</text>
+
+        <!-- mountain silhouettes -->
+        <polygon points="0,380 80,180 160,300 240,150 320,280 420,200 420,380" fill="#1A0E00" opacity="0.95"/>
+        <polygon points="0,380 50,260 120,340 200,220 280,320 360,240 420,290 420,380" fill="#0D0A06"/>
+
+        <!-- ground -->
+        <rect x="0" y="380" width="420" height="200" fill="#1C0E00"/>
+        <rect x="0" y="380" width="420" height="6" fill="#8B4513" opacity="0.6"/>
+
+        <!-- glow-rock green light from mine crack in ground -->
+        <ellipse cx="100" cy="395" rx="60" ry="12" fill="#3DAA4A" filter="url(#blur-lg)" opacity="0.3"/>
+        <path d="M70 390 Q100 395 130 388" stroke="#3DAA4A" stroke-width="3" fill="none" opacity="0.5"/>
+
+        <!-- Kung-Fu Master glow -->
+        <ellipse cx="140" cy="420" rx="50" ry="20" fill="url(#glow-r)" filter="url(#blur-lg)"/>
+
+        <!-- Samurai Cowboy glow -->
+        <ellipse cx="280" cy="420" rx="50" ry="20" fill="url(#glow-g)" filter="url(#blur-lg)"/>
+
+        <!-- KUNG-FU MASTER (left figure) -->
+        <g transform="translate(88, 260)">
+          <!-- robe flowing -->
+          <path d="M30 60 L10 160 L60 160 L50 60 Z" fill="#B5151B"/>
+          <!-- legs -->
+          <path d="M20 160 L14 210 L30 210 L35 165 Z" fill="#7A0E0E"/>
+          <path d="M40 160 L46 210 L32 210 L35 165 Z" fill="#7A0E0E"/>
+          <!-- sandals -->
+          <rect x="11" y="206" width="20" height="7" rx="2" fill="#2C1400"/>
+          <rect x="30" y="206" width="20" height="7" rx="2" fill="#2C1400"/>
+          <!-- sash -->
+          <rect x="18" y="115" width="28" height="10" rx="2" fill="#F0B429"/>
+          <!-- head -->
+          <circle cx="35" cy="46" r="18" fill="#C8846A"/>
+          <!-- conical hat -->
+          <ellipse cx="35" cy="28" rx="24" ry="7" fill="#7A0E0E"/>
+          <polygon points="35,6 11,28 59,28" fill="#B5151B"/>
+          <!-- eyes — focused -->
+          <ellipse cx="29" cy="44" rx="4" ry="3" fill="#1A1208"/>
+          <ellipse cx="41" cy="44" rx="4" ry="3" fill="#1A1208"/>
+          <!-- FLUTE as weapon - raised arm -->
+          <line x1="35" y1="70" x2="-20" y2="40" stroke="#B5151B" stroke-width="10" stroke-linecap="round"/>
+          <line x1="-20" y1="40" x2="-55" y2="20" stroke="#8B6914" stroke-width="5" stroke-linecap="round"/>
+          <!-- punch arm -->
+          <line x1="35" y1="80" x2="75" y2="60" stroke="#B5151B" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="75" cy="58" r="9" fill="#C8846A"/>
+          <!-- musical notes from flute -->
+          <text x="-65" y="15" font-size="16" fill="#F0B429" opacity="0.8">♪</text>
+          <text x="-75" y="0" font-size="12" fill="#F0B429" opacity="0.6">♩</text>
+          <text x="-50" y="-8" font-size="10" fill="#F0B429" opacity="0.5">♫</text>
+          <!-- sonic arc -->
+          <path d="M-50,25 Q-30,10 -10,25" stroke="#F0B429" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="3,3"/>
+          <path d="M-60,30 Q-30,8 0,30" stroke="#F0B429" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="3,3"/>
+        </g>
+
+        <!-- IMPACT FLASH -->
+        <g transform="translate(208, 340)">
+          <polygon points="0,-30 6,-8 28,-8 10,4 16,28 0,14 -16,28 -10,4 -28,-8 -6,-8" fill="#F0B429" opacity="0.9"/>
+          <polygon points="0,-18 4,-6 16,-6 6,2 10,16 0,8 -10,16 -6,2 -16,-6 -4,-6" fill="#FFFFFF" opacity="0.95"/>
+        </g>
+
+        <!-- SAMURAI COWBOY (right figure) -->
+        <g transform="translate(248, 250)">
+          <!-- duster coat -->
+          <path d="M25 65 L12 175 L68 175 L55 65 Z" fill="#3D2B1F"/>
+          <!-- coat split -->
+          <path d="M40 65 L30 130 L40 140 Z" fill="#2C1A0E"/>
+          <path d="M40 65 L50 130 L40 140 Z" fill="#2C1A0E"/>
+          <!-- legs -->
+          <path d="M22 175 L16 218 L33 218 L38 178 Z" fill="#2C1A0E"/>
+          <path d="M58 175 L64 218 L47 218 L42 178 Z" fill="#2C1A0E"/>
+          <!-- spurred boots -->
+          <rect x="13" y="213" width="23" height="8" rx="3" fill="#1A0E00"/>
+          <rect x="44" y="213" width="23" height="8" rx="3" fill="#1A0E00"/>
+          <polygon points="13,217 6,222 13,222" fill="#888"/>
+          <polygon points="67,217 74,222 67,222" fill="#888"/>
+          <!-- obi belt -->
+          <rect x="22" y="120" width="36" height="14" rx="2" fill="#8B0000"/>
+          <rect x="33" y="118" width="14" height="18" rx="2" fill="#F0B429"/>
+          <!-- HEAD -->
+          <circle cx="40" cy="46" r="17" fill="#C8846A"/>
+          <!-- hat brim -->
+          <ellipse cx="40" cy="28" rx="30" ry="9" fill="#2C1A0E"/>
+          <rect x="20" y="10" width="40" height="20" rx="6" fill="#3D2B1F"/>
+          <rect x="20" y="26" width="40" height="5" fill="#F0B429" opacity="0.7"/>
+          <!-- eyes - focused -->
+          <ellipse cx="34" cy="44" rx="3.5" ry="3" fill="#1A1208"/>
+          <ellipse cx="46" cy="44" rx="3.5" ry="3" fill="#1A1208"/>
+          <!-- jaw hint -->
+          <path d="M33 54 Q40 58 47 54" stroke="#8B5E3C" stroke-width="1.5" fill="none"/>
+          <!-- KATANA raised -->
+          <line x1="40" y1="70" x2="0" y2="30" stroke="#3D2B1F" stroke-width="10" stroke-linecap="round"/>
+          <line x1="0" y1="30" x2="-40" y2="-20" stroke="#C0C0C0" stroke-width="4" stroke-linecap="round"/>
+          <rect x="-12" y="18" width="16" height="5" rx="2" fill="#F0B429" transform="rotate(-52,-4,20)"/>
+          <!-- katana gleam -->
+          <line x1="-10" y1="20" x2="-38" y2="-18" stroke="white" stroke-width="1.5" opacity="0.7"/>
+          <!-- GUN arm -->
+          <line x1="40" y1="80" x2="85" y2="90" stroke="#3D2B1F" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="86" cy="91" r="8" fill="#C8846A"/>
+          <rect x="80" y="87" width="20" height="6" rx="2" fill="#2C1A0E" transform="rotate(-10,90,90)"/>
+          <!-- muzzle flash -->
+          <polygon points="102,87 108,82 108,92" fill="#F0B429" opacity="0.8"/>
+        </g>
+
+        <!-- CORPORATE CACTUS - background right -->
+        <g transform="translate(340, 300)" opacity="0.7">
+          <rect x="8" y="0" width="14" height="80" rx="6" fill="#1A4F8A"/>
+          <rect x="0" y="20" width="18" height="9" rx="4" fill="#1A4F8A"/>
+          <rect x="-8" y="10" width="14" height="28" rx="6" fill="#1A4F8A"/>
+          <rect x="14" y="28" width="18" height="9" rx="4" fill="#1A4F8A"/>
+          <rect x="18" y="14" width="14" height="26" rx="6" fill="#1A4F8A"/>
+          <circle cx="15" cy="-4" r="10" fill="#0D3D7A"/>
+          <text x="8" y="-2" font-size="10" fill="#6DA8E8" font-family="monospace">$</text>
+        </g>
+
+        <!-- LIZARD lurking lower left -->
+        <g transform="translate(10, 430)" opacity="0.85">
+          <ellipse cx="50" cy="20" rx="35" ry="14" fill="#2D4A1E"/>
+          <ellipse cx="18" cy="18" rx="16" ry="10" fill="#2D4A1E"/>
+          <ellipse cx="5" cy="18" rx="7" ry="6" fill="#1E3414"/>
+          <circle cx="14" cy="13" r="4" fill="#FFD700"/>
+          <circle cx="14" cy="13" r="2" fill="#000"/>
+          <path d="M2 20 Q8 25 18 22" stroke="#8B0000" stroke-width="1.5" fill="none"/>
+          <path d="M85 20 Q95 14 100 18 Q96 22 99 27 Q92 22 85 23 Z" fill="#1E3414"/>
+          <path d="M30 7 L31 -2 M38 5 L40 -4 M46 6 L48 -3" stroke="#3A5C28" stroke-width="2" fill="none"/>
+          <text x="32" y="36" font-family="'Oswald',sans-serif" font-size="7" fill="#8B0000" letter-spacing="2">BEAST</text>
+        </g>
+
+        <!-- SCAN LINES for mood -->
+        <rect width="420" height="580" fill="transparent" opacity="0.03">
+          <animate attributeName="opacity" values="0.02;0.05;0.02" dur="0.1s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- ISSUE NUMBER OVERLAY -->
+        <text x="16" y="570" font-family="'Oswald',sans-serif" font-size="11" fill="#F0B429" opacity="0.8" letter-spacing="3">DRY GULCH — HIGH MOON — ISSUE #4 COVER</text>
+      </svg>
+
+      <div class="scene-caption">
+        <div class="scene-caption-text">★ Cover Gallery — Issue #4: High Moon Massacre ★</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-bottom-title">拳笛 刃花</div>
+    <div class="cover-bottom-tag">Fist of the Flute • Blade of the Blossom</div>
+    <div style="font-family:'Oswald',sans-serif; font-size:10px; letter-spacing:4px; color:var(--smoke);">AN ALIEN MISREADING OF HUMANITY</div>
+  </div>
+</div>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item">FIST OF THE FLUTE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">BLADE OF THE BLOSSOM</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item red">HYDRATION IS A PREMIUM SERVICE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">HOSTILE ACOUSTICS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item blue">MARKET CORRECTION!</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">WATER REMEMBERS ITS PATH</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item red">THEN WE HELP IT CHOOSE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">THIS TOWN AIN'T BUILT FOR CHOREOGRAPHY</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">KUNG-FU WEDNESDAYS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">拳笛  刃花</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">FIST OF THE FLUTE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">BLADE OF THE BLOSSOM</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item red">HYDRATION IS A PREMIUM SERVICE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">HOSTILE ACOUSTICS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item blue">MARKET CORRECTION!</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">WATER REMEMBERS ITS PATH</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item red">THEN WE HELP IT CHOOSE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">THIS TOWN AIN'T BUILT FOR CHOREOGRAPHY</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">KUNG-FU WEDNESDAYS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">拳笛  刃花</span>
+    <span class="marquee-item accent">✦</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ISSUES
+═══════════════════════════════════════════ -->
+<div class="issues-wrapper">
+
+  <!-- ──── ISSUE 1 ──── -->
+  <div class="issue-block issue-1">
+    <div class="issue-mega-num">#1</div>
+    <div class="issue-header">
+      <div class="issue-num-block">
+        <div class="iss-num-label">Issue</div>
+        <div class="iss-num red">01</div>
+      </div>
+      <div class="issue-title-area">
+        <div class="issue-subtitle">Opening Salvo</div>
+        <div class="issue-title">The Town That Thirsted</div>
+        <div class="issue-logline">"In Dry Gulch, even the dust was thirsty." — Corporate Cacti arrive. The Lizard Beasts mine. The Red Clay elders listen to the earth.</div>
+      </div>
+    </div>
+    <div class="scenes-grid">
+      <div class="scene-card">
+        <div class="splash-indicator">Opening Splash</div>
+        <div class="scene-type splash">Full-Page Spread</div>
+        <div class="scene-title">The Wide, Merciless Sun</div>
+        <div class="scene-body">
+          Dry Gulch under a bleached-white sky. The windmill creaks like a dying metronome. A tumbleweed the size of a wagon rolls past the sagging Last Drop Saloon. Three close panels: a Sheriff spinning a single bullet between finger and thumb. A Schoolmarm dipping a cracked mug into a bone-dry trough. A Prospector tapping an empty canteen upside-down.
+        </div>
+        <div class="caption-box">"In Dry Gulch, even the dust was thirsty."</div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type double">Double-Page Villain Entrance</div>
+        <div class="scene-title">Arrival of the Corporate Cacti</div>
+        <div class="scene-body">
+          Steam-powered iron contraptions rumble in. The Corporate Cacti are literal towering saguaros in pinstripe vests, monocles, and polished boots. Pumps hiss like snakes. Brass gauges tick. A pump pierces the town well like a vampiric syringe. The last drop rises in a glass tube labeled:
+        </div>
+        <div class="speech-bubble corporate">"Hydration is a premium service."<br>— CEO Cactus (gold-plated spines)</div>
+        <div class="scene-body" style="margin-top:10px;">Panel highlight: The tube is stamped <em>CACTUS-COLA RESERVE</em>.</div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type reveal" style="color:#8B3A00">Dawn Raid</div>
+        <div class="scene-title">The Reptile Beasts Strike</div>
+        <div class="scene-body">
+          Hard tonal snap. Silence. Pink dawn. Anthropomorphic Gila monsters in bandanas lasso townsfolk. Rattlesnake rifles fire coils of rope. They drag captives toward a canyon fissure glowing eerie green.
+        </div>
+        <div class="scene-visual">
+          <!-- Glow-rock mine SVG -->
+          <svg width="100%" height="60" viewBox="0 0 300 60">
+            <rect width="300" height="60" fill="#0D1A0A"/>
+            <ellipse cx="150" cy="50" rx="100" ry="20" fill="#3DAA4A" opacity="0.3" filter="blur(6px)"/>
+            <path d="M80 60 L100 30 Q110 15 120 30 L140 60" fill="#1E3414"/>
+            <path d="M140 60 L160 20 Q170 5 180 20 L200 60" fill="#162810"/>
+            <path d="M200 60 L215 35 Q222 20 232 35 L250 60" fill="#1E3414"/>
+            <!-- glowing cracks -->
+            <path d="M95 55 L100 45 L108 50 L112 38" stroke="#3DAA4A" stroke-width="2" fill="none" opacity="0.8"/>
+            <path d="M170 52 L175 40 L180 45 L188 32" stroke="#3DAA4A" stroke-width="2" fill="none" opacity="0.7"/>
+            <text x="110" y="22" font-family="'Oswald',sans-serif" font-size="10" fill="#3DAA4A" letter-spacing="3" opacity="0.9">GLOW-ROCK MINE</text>
+          </svg>
+        </div>
+        <div class="caption-box" style="background: #1E3414; border-left-color: #3DAA4A; color: #7ACA8A;">"The engines of greed glow brightest in the dark."</div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type">Quiet Scene</div>
+        <div class="scene-title">Red Clay Canyon</div>
+        <div class="scene-body">
+          Muted reds and cracked earth. The Red Clay elders chant beside a dry aquifer shrine. Totem poles split from drought. A child presses ear to ground, hearing machines far below. Final panel: a faint train whistle in the distance.
+        </div>
+        <div style="text-align:center; padding: 16px 0; font-family:'Noto Serif JP',serif; font-size:32px; opacity:0.25; letter-spacing:10px;">赤 土</div>
+        <div style="font-family:'Special Elite',cursive; font-size:12px; color:var(--smoke); font-style:italic; border-top: 1px solid rgba(0,0,0,0.1); padding-top:10px;">Cut to black.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── ISSUE 2 ──── -->
+  <div class="issue-block issue-2">
+    <div class="issue-mega-num" style="color: rgba(26,79,138,0.08)">#2</div>
+    <div class="issue-header">
+      <div class="issue-num-block">
+        <div class="iss-num-label">Issue</div>
+        <div class="iss-num blue">02</div>
+      </div>
+      <div class="issue-title-area">
+        <div class="issue-subtitle">The Strangers Arrive</div>
+        <div class="issue-title">Strangers of Wind and Steam</div>
+        <div class="issue-logline">A barefoot man shatters pump valves with a single flute note. A train arrives in cotton-candy pink smoke. The town stares. The Sheriff mutters.</div>
+      </div>
+    </div>
+    <div class="scenes-grid">
+      <div class="scene-card">
+        <div class="scene-type">Mirage Horizon Panel</div>
+        <div class="scene-title">The Man with the Empty Canteen</div>
+        <div class="scene-body">
+          The Kung-Fu Master walks barefoot across shimmering heat. Poncho over flowing robes. Bamboo flute like a rifle sling across his back. Three Cactus enforcers mock him.
+          <br><br>Single wide silent panel: he exhales a flute note.
+        </div>
+        <div class="scene-visual">
+          <div class="sound-wave">
+            <div class="wave-bar" style="height:15px;"></div>
+            <div class="wave-bar" style="height:28px;"></div>
+            <div class="wave-bar" style="height:38px;"></div>
+            <div class="wave-bar" style="height:32px;"></div>
+            <div class="wave-bar" style="height:22px;"></div>
+            <div class="wave-bar" style="height:40px;"></div>
+            <div class="wave-bar" style="height:35px;"></div>
+            <div class="wave-bar" style="height:20px;"></div>
+            <div class="wave-bar" style="height:30px;"></div>
+            <div class="wave-bar" style="height:38px;"></div>
+            <div class="wave-bar" style="height:26px;"></div>
+            <div class="wave-bar" style="height:18px;"></div>
+            <div class="wave-bar" style="height:35px;"></div>
+            <div class="wave-bar" style="height:28px;"></div>
+            <div class="wave-bar" style="height:40px;"></div>
+            <div class="wave-bar" style="height:32px;"></div>
+            <div class="wave-bar" style="height:22px;"></div>
+            <div class="wave-bar" style="height:15px;"></div>
+            <div class="wave-bar" style="height:10px;"></div>
+            <div class="wave-bar" style="height:6px;"></div>
+          </div>
+        </div>
+        <div class="scene-body" style="margin-top:8px;">Next panel: pump valves shatter in elegant spirals.</div>
+        <div class="speech-bubble" style="border-color: var(--corp-blue); color: var(--corp-blue);">
+          "...hostile acoustics..."<br>
+          <span style="font-size:11px; opacity:0.6;">— a collapsing Cactus enforcer, final words</span>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="splash-indicator">Entrance Sequence</div>
+        <div class="scene-type">Steam Locomotive</div>
+        <div class="scene-title">The Pink Smoke Train</div>
+        <div class="scene-body">
+          The locomotive arrives belching cotton-candy pink smoke. Out steps the Samurai. Stillness. Hat brim shadowing eyes.
+          <br><br>
+          Behind him: Traveling Dancers in kimono-and-feather hybrid costumes leap into a can-can-kabuki fusion performance mid-street.
+          <br><br>
+          The townsfolk stare. The Sheriff tips his hat back slowly.
+        </div>
+        <div class="speech-bubble hero">"This town ain't built for choreography."<br><span style="font-size:10px; opacity:0.6;">— The Sheriff</span></div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type">Tense Interior</div>
+        <div class="scene-title">The Saloon Standoff</div>
+        <div class="scene-body">
+          Inside the Last Drop Saloon. Kung-Fu Master and Samurai lock eyes across a card table. Insert panel: flute vs katana side by side.
+          <br><br>
+          Background score implied visually — musical notes curling through panel gutters like dueling serpents.
+          <br><br>
+          Tiny nod exchanged. Unspoken agreement. The alliance begins without a single word.
+        </div>
+        <div style="text-align:center; padding:14px 0; font-family:'Noto Serif JP',serif; font-size:28px; color: var(--gold); opacity:0.6; letter-spacing:8px;">刀 ♪ 笛</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── ISSUE 3 ──── -->
+  <div class="issue-block issue-3">
+    <div class="issue-mega-num" style="color: rgba(200,100,10,0.07)">#3</div>
+    <div class="issue-header">
+      <div class="issue-num-block">
+        <div class="iss-num-label">Issue</div>
+        <div class="iss-num gold">03</div>
+      </div>
+      <div class="issue-title-area">
+        <div class="issue-subtitle">Training Arc & Hearts</div>
+        <div class="issue-title">Dust Training & Desert Hearts</div>
+        <div class="issue-logline">"To fight for water, first learn to move like it." The town becomes a school. Steel-lined fans open. Romance stumbles through the heat.</div>
+      </div>
+    </div>
+    <div class="scenes-grid">
+      <div class="scene-card">
+        <div class="scene-type montage">Montage</div>
+        <div class="scene-title">The Way of the Dry Palm</div>
+        <div class="scene-body">
+          Saffron sunset lighting. The Kung-Fu Master teaches water-saving katas — hands move like waves without water.
+          <br><br>
+          The banjo player finds stance balance in his picking posture. The Sheriff loads his last bullet, considers it, then sets it down and practices hand strikes instead.
+        </div>
+        <div class="caption-box">"To fight for water, first learn to move like it."</div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type">Training Sequence</div>
+        <div class="scene-title">Dance of Blades</div>
+        <div class="scene-body">
+          The Samurai trains escaped miners. Fans snap open — steel-lined edges revealed. Dancers whirl in floral patterns that form tactical formations.
+          <br><br>
+          Overhead panel: the choreography shaped like a blooming flower that is also, unmistakably, an ambush formation.
+        </div>
+        <div style="text-align:center; padding: 16px;">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <g transform="translate(40,40)">
+              <ellipse rx="8" ry="20" fill="none" stroke="#C8920A" stroke-width="1.5" transform="rotate(0)"/>
+              <ellipse rx="8" ry="20" fill="none" stroke="#C8920A" stroke-width="1.5" transform="rotate(45)"/>
+              <ellipse rx="8" ry="20" fill="none" stroke="#C8920A" stroke-width="1.5" transform="rotate(90)"/>
+              <ellipse rx="8" ry="20" fill="none" stroke="#C8920A" stroke-width="1.5" transform="rotate(135)"/>
+              <circle r="5" fill="#B5151B"/>
+              <circle r="2" fill="#F0B429"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type">Comic Relief / Romance</div>
+        <div class="scene-title">Romantic Embers</div>
+        <div class="scene-body">
+          Schoolmarm stitching the Samurai's torn sleeve. Silent eye contact — neither speaks. The moment is complete without words.
+          <br><br>
+          Prospector fumbles over a compliment to the lead dancer; she taps his nose with a fan.
+          <br><br>
+          Comic relief deputy falls headfirst into a water barrel.
+        </div>
+        <div class="caption-box" style="background:var(--gold); color: var(--ink); border-left-color: var(--red);">THUD.</div>
+        <div class="scene-body" style="margin-top:10px; font-style:italic; opacity:0.6;">(The barrel is empty.)</div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type reveal">Underground Reveal</div>
+        <div class="scene-title">The Big Discovery</div>
+        <div class="scene-body">
+          Corporate Cacti blueprint: <strong>"OPERATION: SACRED FLOOD RELOCATION."</strong>
+          They intend to redirect the aquifer to collapse Red Clay land and drive them out. The glow-rock powers the pump engines.
+        </div>
+        <div class="speech-bubble hero">"Water remembers its path."<br><span style="font-size:10px; opacity:0.6;">— The Kung-Fu Master</span></div>
+        <div class="speech-bubble" style="border-color: var(--ink); margin-top:22px;">"Then we help it choose."<br><span style="font-size:10px; opacity:0.6;">— The Samurai</span></div>
+        <div class="caption-box" style="display:block; text-align:center; margin-top:14px;">ALLIANCE SEALED.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── ISSUE 4 ──── -->
+  <div class="issue-block issue-4">
+    <div class="issue-mega-num" style="color: rgba(240,180,40,0.05)">#4</div>
+    <div class="issue-header">
+      <div class="issue-num-block" style="background: rgba(255,255,255,0.03);">
+        <div class="iss-num-label" style="color:#9A8FAA;">Issue</div>
+        <div class="iss-num" style="color:#F0B429;">04</div>
+      </div>
+      <div class="issue-title-area">
+        <div class="issue-subtitle">The War Issue</div>
+        <div class="issue-title">High Moon Massacre</div>
+        <div class="issue-logline">The clock reads noon — but the sun burned out of the panel border. The moon took its place. This is no longer a duel. This is a reckoning.</div>
+      </div>
+    </div>
+    <div class="scenes-grid" style="background: #0D0A06;">
+
+      <div class="scene-card" style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08);">
+        <div class="splash-indicator">Full Spread</div>
+        <div class="scene-type" style="color:#9A8FAA;">The Silvered Hour</div>
+        <div class="scene-title" style="color:var(--white);">High Moon Rises</div>
+        <div class="scene-body" style="color:rgba(240,232,208,0.7);">
+          Moonlit desert. Heat haze replaced by cool blue tones. Clock reads High Noon — but the sun has burned out of the panel border, replaced by the moon's cold glare. The whole world holds its breath.
+        </div>
+        <div style="text-align:center; padding:16px; font-family:'Noto Serif JP',serif; font-size:36px; color:rgba(200,180,140,0.3); letter-spacing:12px;">月 夜</div>
+      </div>
+
+      <div class="scene-card" style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08);">
+        <div class="scene-type climax">CLIMAX SEQUENCE</div>
+        <div class="scene-title" style="color:var(--white);">Duel of Sound and Spine</div>
+        <div class="scene-body" style="color:rgba(240,232,208,0.7);">
+          CEO Cactus towers — spines gold-plated, spurs gleaming. His speech balloon is shaped like a profit chart.
+        </div>
+        <div class="speech-bubble corporate" style="margin-top:12px;">"Liquidity drives civilization!"</div>
+        <div class="scene-body" style="color:rgba(240,232,208,0.7); margin-top:12px;">
+          The Kung-Fu Master answers with layered flute harmonics. Sonic shockwaves drawn as elegant white arcs slicing through desert air. Each note cracks cactus armor.
+        </div>
+        <div class="scene-visual">
+          <div class="sound-wave" style="justify-content:center;">
+            <div class="wave-bar" style="height:8px; background:white; opacity:0.4;"></div>
+            <div class="wave-bar" style="height:20px; background:white; opacity:0.5;"></div>
+            <div class="wave-bar" style="height:35px; background:white; opacity:0.7;"></div>
+            <div class="wave-bar" style="height:44px; background:white; opacity:0.9;"></div>
+            <div class="wave-bar" style="height:38px; background:white; opacity:0.8;"></div>
+            <div class="wave-bar" style="height:44px; background:white; opacity:0.9;"></div>
+            <div class="wave-bar" style="height:30px; background:white; opacity:0.6;"></div>
+            <div class="wave-bar" style="height:18px; background:white; opacity:0.4;"></div>
+            <div class="wave-bar" style="height:8px; background:white; opacity:0.2;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene-card" style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08);">
+        <div class="scene-type" style="color:#7ACA8A;">Battle Sequence</div>
+        <div class="scene-title" style="color:var(--white);">Petals and Fangs</div>
+        <div class="scene-body" style="color:rgba(240,232,208,0.7);">
+          Samurai leads the charge. Dancers spin like razor-edged blossoms. Reptile Beasts fire coil rifles — blades slice ropes midair. One rattlesnake attempts intimidation. A dancer drop-kicks him into a water trough.
+          <br><br>
+          Over-the-top lens flare panel across katana edge.
+        </div>
+        <div style="text-align:center; padding:12px 0;">
+          <svg width="120" height="50" viewBox="0 0 120 50">
+            <!-- katana flash -->
+            <line x1="0" y1="25" x2="120" y2="25" stroke="#C0C0C0" stroke-width="2"/>
+            <polygon points="100,18 120,25 100,32" fill="#F0B429"/>
+            <line x1="60" y1="0" x2="60" y2="50" stroke="white" stroke-width="0.5" opacity="0.4"/>
+            <ellipse cx="60" cy="25" rx="40" ry="8" fill="white" opacity="0.06"/>
+            <circle cx="85" cy="20" r="3" fill="white" opacity="0.6"/>
+            <circle cx="95" cy="15" r="2" fill="#F0B429" opacity="0.8"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="scene-card" style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08);">
+        <div class="splash-indicator">Explosive Splash</div>
+        <div class="scene-type climax">Town Rises</div>
+        <div class="scene-title" style="color:var(--white);">One Bullet. One Valve.</div>
+        <div class="scene-body" style="color:rgba(240,232,208,0.7);">
+          The Sheriff fires his single bullet. It hits the pump pressure valve. Water geysers upward. The banjo is weaponized. The deputy accidentally knocks glow-rock into the pump engine. Green lightning crackles.
+        </div>
+        <div class="speech-bubble corporate" style="margin-top:12px; background: #1A0E28; border-color: #8B2BE8; color: #C8A0F0;">"MARKET CORRECTION!"<br><span style="font-size:10px; opacity:0.7;">— CEO Cactus, final words</span></div>
+        <div class="caption-box" style="display:block; text-align:center; margin-top:16px; background:var(--red);">EXPLOSION OF JUICE AND STOCK CERTIFICATES.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── ISSUE 5 ──── -->
+  <div class="issue-block issue-5">
+    <div class="issue-mega-num" style="color: rgba(61,170,74,0.07)">#5</div>
+    <div class="issue-header">
+      <div class="issue-num-block">
+        <div class="iss-num-label">Issue</div>
+        <div class="iss-num green">05</div>
+      </div>
+      <div class="issue-title-area">
+        <div class="issue-subtitle">The Final Issue</div>
+        <div class="issue-title">Rain, Reckoning & Riding Away</div>
+        <div class="issue-logline">"In Dry Gulch, the market fell… but the rain rose." One raindrop. Then another. Then the torrent that was always promised.</div>
+      </div>
+    </div>
+    <div class="scenes-grid">
+      <div class="scene-card">
+        <div class="splash-indicator">Emotional Splash</div>
+        <div class="scene-type reveal">The First Drop</div>
+        <div class="scene-title">Rain on Cracked Earth</div>
+        <div class="scene-body">
+          One raindrop hits cracked earth. Then another. Then torrent. Red Clay elders dance with townsfolk. Aquifer swells. The glow-rock dims. The pumps are silent.
+        </div>
+        <div class="scene-visual">
+          <svg width="100%" height="50" viewBox="0 0 300 50">
+            <rect width="300" height="50" fill="#0D1A18" rx="3"/>
+            <!-- rain drops -->
+            <line x1="30" y1="5" x2="28" y2="20" stroke="#7ABFCA" stroke-width="1.5" opacity="0.8"/>
+            <line x1="70" y1="0" x2="68" y2="18" stroke="#7ABFCA" stroke-width="1" opacity="0.6"/>
+            <line x1="110" y1="8" x2="108" y2="24" stroke="#7ABFCA" stroke-width="1.5" opacity="0.9"/>
+            <line x1="150" y1="2" x2="148" y2="20" stroke="#7ABFCA" stroke-width="1" opacity="0.7"/>
+            <line x1="190" y1="6" x2="188" y2="22" stroke="#7ABFCA" stroke-width="1.5" opacity="0.8"/>
+            <line x1="230" y1="0" x2="228" y2="16" stroke="#7ABFCA" stroke-width="1" opacity="0.5"/>
+            <line x1="265" y1="7" x2="263" y2="23" stroke="#7ABFCA" stroke-width="1.5" opacity="0.9"/>
+            <!-- splash rings on ground -->
+            <ellipse cx="29" cy="42" rx="8" ry="3" fill="none" stroke="#3DAA4A" stroke-width="1" opacity="0.6"/>
+            <ellipse cx="109" cy="44" rx="10" ry="3.5" fill="none" stroke="#3DAA4A" stroke-width="1" opacity="0.8"/>
+            <ellipse cx="189" cy="43" rx="8" ry="3" fill="none" stroke="#3DAA4A" stroke-width="1" opacity="0.6"/>
+            <text x="118" y="28" font-family="'Oswald',sans-serif" font-size="12" fill="#3DAA4A" letter-spacing="4" opacity="0.8">THE AQUIFER REMEMBERS</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type">Quiet Farewells</div>
+        <div class="scene-title">What Goes Unsaid</div>
+        <div class="scene-body">
+          Schoolmarm and Samurai share a quiet look. No kiss — just a mutual bow. The Prospector tips his hat to the lead dancer; she leaves him a silk ribbon without breaking stride.
+          <br><br>
+          The deputy attempts a salute. His hat falls in the mud.
+        </div>
+        <div class="caption-box">THUD. (AGAIN.)</div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-type">The Road</div>
+        <div class="scene-title">Partings</div>
+        <div class="scene-body">
+          The Kung-Fu Master walks barefoot into a glowing horizon, flute melody drifting through lettered sound-lines in the sky above him. The Samurai boards the train. Steam is now silver-white.
+          <br><br>
+          He tips his hat. The train pulls away.
+        </div>
+        <div class="scene-visual">
+          <div class="sound-wave" style="justify-content:flex-start;">
+            <div class="wave-bar" style="height:30px;"></div>
+            <div class="wave-bar" style="height:25px;"></div>
+            <div class="wave-bar" style="height:35px;"></div>
+            <div class="wave-bar" style="height:20px;"></div>
+            <div class="wave-bar" style="height:28px;"></div>
+            <div class="wave-bar" style="height:15px;"></div>
+            <div class="wave-bar" style="height:10px;"></div>
+            <div class="wave-bar" style="height:7px;"></div>
+            <div class="wave-bar" style="height:4px;"></div>
+            <div class="wave-bar" style="height:2px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINAL FREEZE PANEL AS SCENE CARD -->
+      <div class="scene-card" style="background: linear-gradient(135deg, #FFF8E0, #F2E8D0); grid-column: span 1;">
+        <div class="scene-type splash">★ Final Freeze Panel</div>
+        <div class="scene-title">Last Drop Saloon</div>
+        <div class="scene-body">
+          The town waves. The tumbleweed passes — carrying a tiny cactus arm clutching a briefcase.
+        </div>
+        <div class="tumbleweed-row" style="padding:16px 0; border:none;">
+          <svg class="tumbleweed" width="40" height="40" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="16" fill="none" stroke="#8B6914" stroke-width="2"/>
+            <ellipse cx="20" cy="20" rx="7" ry="16" fill="none" stroke="#8B6914" stroke-width="1.5"/>
+            <ellipse cx="20" cy="20" rx="16" ry="7" fill="none" stroke="#8B6914" stroke-width="1.5"/>
+            <!-- tiny briefcase -->
+            <rect x="22" y="8" width="8" height="6" rx="1" fill="#1A4F8A"/>
+            <rect x="24" y="7" width="4" height="2" rx="1" fill="#1A4F8A"/>
+            <line x1="22" y1="11" x2="30" y2="11" stroke="#6DA8E8" stroke-width="0.5"/>
+          </svg>
+        </div>
+        <div style="font-family:'Playfair Display',serif; font-weight:900; font-size:16px; color:var(--ink); border:2px solid var(--ink); padding:10px 14px; text-align:center; background:var(--bright-gold);">
+          LAST DROP SALOON<br>
+          <span style="font-size:12px; font-style:italic; font-weight:400;">— Now With Water & Kung-Fu Wednesdays —</span>
+        </div>
+        <div class="caption-box" style="display:block; text-align:center; margin-top:12px;">"In Dry Gulch, the market fell… but the rain rose."</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end issues-wrapper -->
+
+<!-- ═══════════════════════════════════════════
+     CHARACTER DOSSIER
+═══════════════════════════════════════════ -->
+<div class="dossier-section">
+  <div class="dossier-header">
+    <div class="dossier-pretitle">ALIEN ALGORITHM CULTURAL DATABASE — FIELD DOSSIERS</div>
+    <div class="dossier-title">The <span>Players</span> of Dry Gulch</div>
+  </div>
+
+  <div class="characters-row">
+    <div class="char-card" data-initial="拳">
+      <span class="char-icon-large">🔴</span>
+      <div class="char-name red">The Kung-Fu Master</div>
+      <div class="char-archetype">The Wandering Fist — Hero Type A</div>
+      <div class="char-desc">Barefoot. Poncho over flowing red robes. Speaks seldom. Moves always. The bamboo flute slung across his back is both instrument and weapon — its harmonics can shatter steel valves, scatter enforcers, and apparently restructure aquifer geology. Probably. The alien compilers were not certain.</div>
+      <div class="char-weapon red">Bamboo Flute (Lethal)</div>
+    </div>
+
+    <div class="char-card" data-initial="侍">
+      <span class="char-icon-large">🟡</span>
+      <div class="char-name gold">The Samurai Cowboy</div>
+      <div class="char-archetype">The Iron Drifter — Hero Type B</div>
+      <div class="char-desc">Arrives by pink-smoke train. Hat brim, katana, six-gun, spurred boots, and an obi belt over a duster coat. His code demands he protect the gathering. He is accompanied at all times by a troupe of Traveling Dancers who apparently function as tactical support in floral formation.</div>
+      <div class="char-weapon gold">Katana + Six-Gun (Honor-Locked)</div>
+    </div>
+
+    <div class="char-card" data-initial="企">
+      <span class="char-icon-large">🔵</span>
+      <div class="char-name blue">CEO Cactus</div>
+      <div class="char-archetype">The Gold-Spined Monopolist — Principal Villain</div>
+      <div class="char-desc">Towers above lesser cacti. Gold-plated spines. Polished boots. Monocle. His speech balloons are shaped like profit charts. Commands a fleet of steam-powered pump contraptions. Has monetized the town's only water supply. Believes, sincerely, that he is the civilization.</div>
+      <div class="char-weapon blue">Cactus-Cola Reserve (Weaponized Liquidity)</div>
+    </div>
+
+    <div class="char-card" data-initial="蜥">
+      <span class="char-icon-large">🦎</span>
+      <div class="char-name green">The Gila Bandits</div>
+      <div class="char-archetype">Anthropomorphic Chaos — Secondary Threat</div>
+      <div class="char-desc">Bandana-wearing Gila monsters. Armed with rattlesnake rifles that fire coils of rope. They work the Glow-Rock Mine for the Corporate Cacti, though their loyalty is mercurial at best. When the tide turns, they tend to simply leave. One gets drop-kicked into a water trough. It's fine.</div>
+      <div class="char-weapon green">Rattlesnake Rifles (Coil Ammunition)</div>
+    </div>
+
+    <div class="char-card" data-initial="師">
+      <span class="char-icon-large">👩‍🏫</span>
+      <div class="char-name neutral">The Schoolmarm</div>
+      <div class="char-archetype">The Quiet Spine of Dry Gulch</div>
+      <div class="char-desc">Stitches the Samurai's sleeve. Speaks plainly. Does not flinch. Her eye contact conveys more than most characters' full monologues. She represents the town's dignity — the reason the water matters, the reason any of this is worth the violence of song.</div>
+      <div class="char-weapon neutral">Needle & Thread (Emotionally Lethal)</div>
+    </div>
+
+    <div class="char-card" data-initial="舞">
+      <span class="char-icon-large">💃</span>
+      <div class="char-name gold">The Traveling Dancers</div>
+      <div class="char-archetype">Kabuki-Can-Can Tactical Unit</div>
+      <div class="char-desc">Arrive with the Samurai. Kimono-and-feather hybrid costumes. Their can-can-kabuki fusion performances are also: ambush formations, morale operations, and genuine cutting threats (steel-lined fans). The lead dancer taps the Prospector's nose with a fan. This is considered the most romantic gesture in the series.</div>
+      <div class="char-weapon gold">Steel-Lined Fans (Bladed / Performative)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MANIFESTO
+═══════════════════════════════════════════ -->
+<div class="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-label">Tone Refinement Notes — Alien Algorithm Publishing Directive #7741</div>
+    <div class="manifesto-headline">The Laws of This<br>Ridiculous Universe</div>
+
+    <div class="manifesto-rules">
+      <div class="rule-item">
+        <div class="rule-num">I</div>
+        <div class="rule-text">
+          <strong>Villain Vocabulary</strong>
+          Make villains talk in absurd corporate jargon at all times. "Liquidity." "Market correction." "Hydration as premium service." They are entirely sincere. This is the horror.
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">II</div>
+        <div class="rule-text">
+          <strong>Hero Minimalism</strong>
+          Keep heroes mostly wordless. When they do speak, it should land like a katana strike. "Water remembers its path." / "Then we help it choose." That's the whole thing.
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">III</div>
+        <div class="rule-text">
+          <strong>The Silent Panel</strong>
+          Every major strike must be preceded by a wide, wordless panel. One breath. One held moment. Then: chaos.
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">IV</div>
+        <div class="rule-text">
+          <strong>Sound as Weapon</strong>
+          Flute harmonics, taiko reverb, shamisen pluck — draw musical soundwaves as tangible, physical forces. They crack armor. They shatter valves. They are real.
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">V</div>
+        <div class="rule-text">
+          <strong>The Collision Is the Point</strong>
+          Never explain the genre collision. Treat flute acoustics, glow-rock physics, and cactus capitalism as self-evident truths. The weirdness is not the quirk — it is the foundation.
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">VI</div>
+        <div class="rule-text">
+          <strong>The Mandatory Splash</strong>
+          Every issue needs at least one explosive full-page spread. Something that could be hung on a wall. Something that makes a child point and say: <em>"that one."</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="secret-sauce">
+      <p>"The real secret sauce? Never explain too much. Lean into the weirdness until it sings. The alien compilers watched ten thousand hours of cinema and concluded: this was everything. They were not entirely wrong."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FINAL FREEZE
+═══════════════════════════════════════════ -->
+<div class="final-panel">
+  <div class="saloon-sign-section">
+    <div style="margin-bottom:0;">
+      <div class="saloon-chain">
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+        <div class="chain-link"></div>
+      </div>
+      <div class="saloon-sign">
+        LAST DROP SALOON<br>
+        <span style="font-family:'Playfair Display',serif; font-style:italic; font-size:0.55em; font-weight:400; opacity:0.8; letter-spacing:1px;">Now With Water & Kung-Fu Wednesdays</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tumbleweed-row">
+    <svg class="tumbleweed" width="55" height="55" viewBox="0 0 55 55" style="animation-duration:5s;">
+      <circle cx="27" cy="27" r="22" fill="none" stroke="#8B6914" stroke-width="2.5"/>
+      <ellipse cx="27" cy="27" rx="9" ry="22" fill="none" stroke="#8B6914" stroke-width="2"/>
+      <ellipse cx="27" cy="27" rx="22" ry="9" fill="none" stroke="#8B6914" stroke-width="2"/>
+      <ellipse cx="27" cy="27" rx="16" ry="22" fill="none" stroke="#6B4E0A" stroke-width="1" transform="rotate(30,27,27)"/>
+      <ellipse cx="27" cy="27" rx="16" ry="22" fill="none" stroke="#6B4E0A" stroke-width="1" transform="rotate(-30,27,27)"/>
+      <!-- tiny corporate remnant -->
+      <rect x="30" y="10" width="10" height="8" rx="1" fill="#1A4F8A" opacity="0.9"/>
+      <rect x="32" y="9" width="6" height="3" rx="1" fill="#1A4F8A"/>
+      <text x="31" y="17" font-size="5" fill="#6DA8E8" font-family="monospace">$</text>
+    </svg>
+    <div style="font-family:'Special Elite',cursive; font-size:13px; color:var(--smoke); text-align:center; max-width:400px; line-height:1.8;">
+      The tumbleweed rolled by, carrying a tiny cactus arm still clutching its briefcase.<br>
+      The market had corrected.
+    </div>
+  </div>
+
+  <div class="final-caption">
+    <div class="final-caption-text">
+      "In Dry Gulch, the market fell… but <span>the rain rose.</span>"
+    </div>
+    <div style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:5px; color:var(--smoke); text-align:center; margin-top:10px; text-transform:uppercase;">
+      拳笛 刃花 ✦ End of Miniseries ✦ Alien Algorithm Comics ✦ All Civilizations Approximated
+    </div>
+  </div>
+</div>
+
+<!-- FINAL MARQUEE -->
+<div class="marquee-strip" style="border-top:4px solid var(--red);">
+  <div class="marquee-inner" style="animation-direction:reverse;">
+    <span class="marquee-item red">THE MARKET FELL</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">THE RAIN ROSE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">KUNG-FU WEDNESDAYS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item red">HOSTILE ACOUSTICS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">拳笛 刃花</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item blue">CACTUS-COLA RESERVE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">WATER REMEMBERS ITS PATH</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item red">THE MARKET FELL</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">THE RAIN ROSE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">KUNG-FU WEDNESDAYS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item red">HOSTILE ACOUSTICS</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">拳笛 刃花</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item blue">CACTUS-COLA RESERVE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">WATER REMEMBERS ITS PATH</span>
+    <span class="marquee-item accent">✦</span>
+  </div>
+</div>
+
+</body>
+</html>
